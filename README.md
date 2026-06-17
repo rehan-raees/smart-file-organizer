@@ -19,5 +19,7 @@ A Python automation project that organizes files into folders based on file type
 ## Example
 
 sales.csv -> csv files
+
 image.png -> image files
+
 report.pdf -> others
