@@ -2,9 +2,9 @@ import os
 import shutil
 
 # Folder path
-path = r"C:\Users\xyz/"
+path = r"C:\Your\Folder\Path\\"
 
-# Read all items in folder
+# Get all items in folder
 file_name = os.listdir(path)
 
 # File type mapping
@@ -16,7 +16,7 @@ file_type = {
     ".txt": "text files"
 }
 
-# Create folders
+# Create destination folders
 for folder in set(file_type.values()):
     if not os.path.exists(path + folder):
         os.makedirs(path + folder)
@@ -32,35 +32,54 @@ file_count = {}
 # Loop through all items
 for file in file_name:
 
+    # Full path of current item
     source = path + file
 
-    # Skip folders (only files to be moved)
+    # Skip folders
     if not os.path.isfile(source):
         continue
 
+    # Get extension
     file_extension = os.path.splitext(file)[1].lower()
 
-    # Known file types
+    # Decide destination folder
     if file_extension in file_type:
         destination_folder = file_type[file_extension]
-
-    # Unknown file types
     else:
         destination_folder = "others"
 
+    # Build destination path
     destination = path + destination_folder + "/" + file
 
-    # Move file if it doesn't already exist
-    if not os.path.exists(destination):
+    # Handle duplicate file names
+    if os.path.exists(destination):
 
-        shutil.move(source, destination)
+        file_name_only, file_extension = os.path.splitext(file)
 
-        file_moved += 1
+        counter = 1
 
-        if destination_folder not in file_count:
-            file_count[destination_folder] = 0
+        while os.path.exists(destination):
 
-        file_count[destination_folder] += 1
+            new_file_name = (
+                f"{file_name_only}_{counter}{file_extension}"
+            )
+
+            destination = (
+                path + destination_folder + "/" + new_file_name
+            )
+
+            counter += 1
+
+    # Move file
+    shutil.move(source, destination)
+
+    # Update counters
+    file_moved += 1
+
+    if destination_folder not in file_count:
+        file_count[destination_folder] = 0
+
+    file_count[destination_folder] += 1
 
 # Print results
 print(f"\nFiles sorted: {file_moved}")
@@ -69,4 +88,3 @@ print("\nSummary:")
 
 for folder, count in file_count.items():
     print(f"{folder}: {count}")
-print(file_count)
