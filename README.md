@@ -27,9 +27,11 @@ report.pdf -> others
 
 ## Project Workflow
 
-1. Read all items from folder
-2. Ignore folders
-3. Identify file extension
-4. Match extension to destination folder
-5. Move file
-6. Display summary
+1. Read all items from the selected folder
+2. Ignore folders and process only files
+3. Identify the file extension
+4. Match the extension to a destination folder
+5. Create folders if they do not exist
+6. Handle duplicate file names automatically
+7. Move files to their destination folders
+8. Display a summary of files sorted
