@@ -23,3 +23,13 @@ sales.csv -> csv files
 image.png -> image files
 
 report.pdf -> others
+
+
+## Project Workflow
+
+1. Read all items from folder
+2. Ignore folders
+3. Identify file extension
+4. Match extension to destination folder
+5. Move file
+6. Display summary
